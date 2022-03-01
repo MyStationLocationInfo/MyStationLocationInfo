@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import MapKit
 
 class SubwayViewController: UIViewController {
     
+    let locationManager = LocationProcessor()
+    let subwayManager = SubwayProcessor()
     var latitude: Double?
     var longitude: Double?
     
@@ -41,6 +44,7 @@ class SubwayViewController: UIViewController {
     func setup() {
         addViews()
         setConstraints()
+        configureLocationManager()
     }
     
     func addViews() {
@@ -51,6 +55,10 @@ class SubwayViewController: UIViewController {
     func setConstraints() {
         titleLabelConstraints()
         buttonConstraints()
+    }
+    
+    func configureLocationManager() {
+        locationManager.manager.delegate = self
     }
     
     func titleLabelConstraints() {
@@ -72,5 +80,14 @@ class SubwayViewController: UIViewController {
         debugPrint("button 이벤트")
     }
     
-    
+}
+
+extension SubwayViewController: CLLocationManagerDelegate {
+    func locationManager(
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        debugPrint("locations = \(locValue.latitude), \(locValue.longitude)")
+    }
 }
