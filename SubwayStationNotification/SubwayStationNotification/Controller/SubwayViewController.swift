@@ -73,11 +73,31 @@ class SubwayViewController: UIViewController {
         button.heightAnchor.constraint(equalToConstant: 100).isActive = true
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        button.addTarget(self, action: #selector(locationUpdateMarker), for: .touchUpInside)
     }
 
     
     @objc func locationUpdateMarker() {
-        debugPrint("button 이벤트")
+        let mapped: [String: CLLocationDistance] = Data.subways.mapValues { coordinate in
+            
+            guard let latitude = latitude else { return 0.0 }
+            guard let longitude = longitude else { return 0.0 }
+            
+            // 현재 내 coordinate 위도,경도
+            let myLat = CLLocationDegrees(latitude)
+            let myLong = CLLocationDegrees(longitude)
+            let myLocation = CLLocation(latitude: myLat, longitude: myLong)
+            
+            // 지하철 coordinate 위도,경도
+            let stationLat = CLLocationDegrees(coordinate[0])
+            let stationLong = CLLocationDegrees(coordinate[1])
+            let stationLocation = CLLocation(latitude: stationLat, longitude: stationLong)
+            let distance = subwayManager.distance(a: myLocation, b: stationLocation)
+            return distance
+        }
+        
+                
+        debugPrint(mapped.sorted { $0.1 < $1.1 })
     }
     
 }
@@ -88,6 +108,8 @@ extension SubwayViewController: CLLocationManagerDelegate {
         didUpdateLocations locations: [CLLocation]
     ) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        self.latitude = locValue.latitude
+        self.longitude = locValue.longitude
         debugPrint("locations = \(locValue.latitude), \(locValue.longitude)")
     }
 }
