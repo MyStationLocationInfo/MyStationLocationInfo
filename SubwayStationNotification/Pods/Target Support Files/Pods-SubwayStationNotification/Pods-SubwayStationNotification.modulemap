@@ -1,0 +1,6 @@
+framework module Pods_SubwayStationNotification {
+  umbrella header "Pods-SubwayStationNotification-umbrella.h"
+
+  export *
+  module * { export * }
+}
