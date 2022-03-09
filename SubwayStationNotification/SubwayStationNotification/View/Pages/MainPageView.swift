@@ -20,10 +20,12 @@ class MainPageView: UIView {
         return titleLabel
     }()
     
+    let findButtonView: FindButtonView = FindButtonView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        //MRK: - view 세팅
+        //MARK: - view 세팅
         setup()
     }
     
@@ -38,10 +40,12 @@ class MainPageView: UIView {
     
     func addSubView() {
         addSubview(titleLabel)
+        addSubview(findButtonView)
     }
     
     func setConstraints() {
         titleLabelConstratins()
+        findButtonViewConstraints()
     }
     
     func titleLabelConstratins() {
@@ -50,6 +54,14 @@ class MainPageView: UIView {
         titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    }
+    
+    func findButtonViewConstraints() {
+        findButtonView.translatesAutoresizingMaskIntoConstraints = false
+        findButtonView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        findButtonView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        findButtonView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        findButtonView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
 }

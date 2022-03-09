@@ -25,16 +25,6 @@ class SubwayViewController: UIViewController {
         
             return titleLabel
     }()
-    
-    let button: UIButton = {
-      let button = UIButton()
-        button.setTitle("현재 역 위치", for: .normal)
-        button.backgroundColor = .black
-        button.layer.cornerRadius = 16
-        button.addTarget(self, action: #selector(locationUpdateMarker), for: .touchUpInside)
-
-        return button
-    }()
 
     override func viewDidLoad() {
         view.backgroundColor = .white
@@ -49,12 +39,10 @@ class SubwayViewController: UIViewController {
     
     func addViews() {
         view.addSubview(titleLabel)
-        view.addSubview(button)
     }
     
     func setConstraints() {
         titleLabelConstraints()
-        buttonConstraints()
     }
     
     func configureLocationManager() {
@@ -63,19 +51,9 @@ class SubwayViewController: UIViewController {
     
     func titleLabelConstraints() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: button.topAnchor, constant: -60).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
-    
-    func buttonConstraints() {
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        button.addTarget(self, action: #selector(locationUpdateMarker), for: .touchUpInside)
-    }
-
     
     @objc func locationUpdateMarker() {
         let mapped: [String: CLLocationDistance] = Data.subways.mapValues { coordinate in
