@@ -14,17 +14,6 @@ class SubwayViewController: UIViewController {
     let subwayManager = SubwayProcessor()
     var latitude: Double?
     var longitude: Double?
-    
-    let titleLabel: UILabel = {
-        let titleLabel = UILabel()
-            titleLabel.textAlignment = .center
-            titleLabel.text = "🚊터치하여 현재 station search하기"
-            titleLabel.textColor = .black
-            titleLabel.font = UIFont(name: "bold", size: 25)
-            titleLabel.adjustsFontSizeToFitWidth = true
-        
-            return titleLabel
-    }()
 
     override func viewDidLoad() {
         view.backgroundColor = .white
@@ -38,21 +27,14 @@ class SubwayViewController: UIViewController {
     }
     
     func addViews() {
-        view.addSubview(titleLabel)
+        
     }
     
     func setConstraints() {
-        titleLabelConstraints()
     }
     
     func configureLocationManager() {
         locationManager.manager.delegate = self
-    }
-    
-    func titleLabelConstraints() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     @objc func locationUpdateMarker() {
