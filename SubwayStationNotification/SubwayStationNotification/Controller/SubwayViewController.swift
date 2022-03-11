@@ -14,6 +14,9 @@ class SubwayViewController: UIViewController {
     let subwayManager = SubwayProcessor()
     var latitude: Double?
     var longitude: Double?
+    
+    //MARK: - Pages
+    let mainPageView: MainPageView = MainPageView()
 
     override func viewDidLoad() {
         view.backgroundColor = .white
@@ -27,7 +30,7 @@ class SubwayViewController: UIViewController {
     }
     
     func addViews() {
-        
+        view.addSubview(mainPageView)
     }
     
     func setConstraints() {
