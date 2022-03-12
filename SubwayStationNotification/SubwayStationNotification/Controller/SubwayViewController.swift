@@ -34,6 +34,7 @@ class SubwayViewController: UIViewController {
     }
     
     func setConstraints() {
+        pageViewConstraints(subview: mainPageView)
     }
     
     func configureLocationManager() {
@@ -58,10 +59,17 @@ class SubwayViewController: UIViewController {
             let distance = subwayManager.distance(a: myLocation, b: stationLocation)
             return distance
         }
-        
-                
         debugPrint(mapped.sorted { $0.1 < $1.1 })
     }
+    
+    func pageViewConstraints(subview: UIView) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        subview.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        subview.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        subview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+
     
 }
 
