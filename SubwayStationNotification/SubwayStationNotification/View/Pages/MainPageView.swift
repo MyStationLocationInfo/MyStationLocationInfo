@@ -64,5 +64,4 @@ class MainPageView: UIView {
         findButtonView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         findButtonView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
-
 }
