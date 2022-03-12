@@ -36,6 +36,7 @@ class MainPageView: UIView {
     func setup() {
         addSubView()
         setConstraints()
+        findButtonView.startAnimating()
     }
     
     func addSubView() {
