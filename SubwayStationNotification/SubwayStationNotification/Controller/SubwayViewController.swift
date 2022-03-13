@@ -10,11 +10,15 @@ import MapKit
 
 class SubwayViewController: UIViewController {
     
+    // MARK: - constant Property
     let locationManager = LocationProcessor()
     let subwayManager = SubwayProcessor()
+    
+    // MARK: - variable Property
     var latitude: Double?
     var longitude: Double?
-    
+    var gradientLayer: CAGradientLayer!
+
     //MARK: - Pages
     let mainPageView: MainPageView = MainPageView()
 
@@ -27,6 +31,7 @@ class SubwayViewController: UIViewController {
         addViews()
         setConstraints()
         configureLocationManager()
+        configureFindButton()
     }
     
     func addViews() {
@@ -39,6 +44,16 @@ class SubwayViewController: UIViewController {
     
     func configureLocationManager() {
         locationManager.manager.delegate = self
+    }
+    
+    // MARK: - configureFindButton
+    func configureFindButton() {
+        mainPageView.findButtonView.addTarget(self, #selector(handleFindButton))
+    }
+    
+    // MARK: - handleFindButton
+    @objc func handleFindButton() {
+        debugPrint("handleFindButton")
     }
     
     @objc func locationUpdateMarker() {
