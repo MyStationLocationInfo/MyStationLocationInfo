@@ -17,13 +17,13 @@ class SubwayViewController: UIViewController {
     // MARK: - variable Property
     var latitude: Double?
     var longitude: Double?
-    var gradientLayer: CAGradientLayer!
+    var gradientLayer: CAGradientLayer = CAGradientLayer()
 
     //MARK: - Pages
     let mainPageView: MainPageView = MainPageView()
 
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        getGradientLayer()
         setup()
     }
     
@@ -84,7 +84,18 @@ class SubwayViewController: UIViewController {
         subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         subview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-
+    
+    func getGradientLayer() {
+        let colors: [CGColor] = [
+           .init(red: 1, green: 0.4932718873, blue: 0.4739984274, alpha: 1),
+           .init(red: 0.4508578777, green: 0.9882974029, blue: 0.8376303315, alpha: 1),
+           .init(red: 0.476841867, green: 0.5048075914, blue: 1, alpha: 1)
+        ]
+        
+        self.gradientLayer.frame  = self.view.bounds
+        self.gradientLayer.colors = colors
+        self.view.layer.addSublayer(gradientLayer)
+    }
     
 }
 
