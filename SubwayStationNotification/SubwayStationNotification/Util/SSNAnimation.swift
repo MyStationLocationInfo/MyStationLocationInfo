@@ -8,6 +8,7 @@
 import UIKit
 
 class SSNAnimation {
+    //MARK: - Animation show.
     func show(
         view: UIView,
         duration: TimeInterval,
@@ -19,6 +20,25 @@ class SSNAnimation {
             options: .curveEaseOut,
             animations: {
                 view.alpha = 1
+            },
+            completion: {  _ in
+                completion?()
+            }
+        )
+    }
+
+    //MARK: - Animation hide.
+    func hide(
+        view: UIView,
+        duration: TimeInterval,
+        completion:  (() -> Void)?
+    ){
+        UIView.animate(
+            withDuration: duration,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {
+                view.alpha = 0
             },
             completion: {  _ in
                 completion?()
