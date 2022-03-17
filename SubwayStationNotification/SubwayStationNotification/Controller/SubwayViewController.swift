@@ -22,20 +22,6 @@ class SubwayViewController: UIViewController {
 
     //MARK: - Pages
     let mainPageView: MainPageView = MainPageView()
-    
-    let metroLottie: AnimationView = {
-        let metroLottie:AnimationView = AnimationView(name: "metro")
-        metroLottie.play(
-            fromFrame: 0,
-            toFrame: 200,
-            loopMode: .loop,
-            completion: nil
-        )
-        metroLottie.animationSpeed = 2
-        metroLottie.alpha = 0
-        
-        return metroLottie
-    }()
 
     override func viewDidLoad() {
         let gradientLayer = designProcessor.getGradientLayer(view)
@@ -52,12 +38,10 @@ class SubwayViewController: UIViewController {
     
     func addViews() {
         view.addSubview(mainPageView)
-        view.addSubview(metroLottie)
     }
     
     func setConstraints() {
         pageViewConstraints(subview: mainPageView)
-        metroLottieConstratins()
     }
     
     func configureLocationManager() {
@@ -72,19 +56,6 @@ class SubwayViewController: UIViewController {
     // MARK: - handleFindButton
     @objc func handleFindButton() {
         debugPrint("handleFindButton")
-        UIView.animate(
-            withDuration: 0.5,
-            delay: 0,
-            animations: {
-                self.mainPageView.findButtonView.alpha = 0
-            }) { _ in
-                UIView.animate(
-                    withDuration: 0.5,
-                    delay: 0,
-                    animations: {
-                        self.metroLottie.alpha = 1
-                    })
-            }
     }
     
     @objc func locationUpdateMarker() {
@@ -114,14 +85,6 @@ class SubwayViewController: UIViewController {
         subview.heightAnchor.constraint(equalToConstant: 300).isActive = true
         subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         subview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    }
-    
-    func metroLottieConstratins() {
-        metroLottie.translatesAutoresizingMaskIntoConstraints = false
-        metroLottie.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        metroLottie.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        metroLottie.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        metroLottie.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }
 
