@@ -36,9 +36,42 @@ class SearchingPageView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setup()
+        addSubView()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
         return nil
+    }
+    
+    func setup() {
+        alpha = 0
+    }
+    
+    func addSubView() {
+        addSubview(titleLabel)
+        addSubview(metroLottie)
+    }
+    
+    func setConstraints() {
+        titleLabelConstratins()
+        loadingAnimationViewConstraints()
+    }
+    
+    private func titleLabelConstratins() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    }
+    
+    private func loadingAnimationViewConstraints() {
+        metroLottie.translatesAutoresizingMaskIntoConstraints = false
+        metroLottie.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        metroLottie.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        metroLottie.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        metroLottie.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }
