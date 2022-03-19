@@ -10,7 +10,7 @@ import UIKit
 class FindButtonView: UIView {
     let findButton: UIButton = {
         let button: UIButton = UIButton(type: .custom)
-        button.setTitle("주변 역 찾기", for: .normal)
+        button.setTitle("현재 역 찾기", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 50
