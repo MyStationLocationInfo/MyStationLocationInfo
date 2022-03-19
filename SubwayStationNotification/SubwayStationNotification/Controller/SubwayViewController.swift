@@ -15,6 +15,7 @@ class SubwayViewController: UIViewController {
     let locationManager = LocationProcessor()
     let subwayManager = SubwayProcessor()
     let designProcessor = DesignProcessor()
+    let ssnAnimation = SSNAnimation()
 
     // MARK: - variable Property
     var latitude: Double?
@@ -22,6 +23,7 @@ class SubwayViewController: UIViewController {
 
     //MARK: - Pages
     let mainPageView: MainPageView = MainPageView()
+    let searchingPageView = SearchingPageView()
 
     override func viewDidLoad() {
         let gradientLayer = designProcessor.getGradientLayer(view)
@@ -56,6 +58,20 @@ class SubwayViewController: UIViewController {
     // MARK: - handleFindButton
     @objc func handleFindButton() {
         debugPrint("handleFindButton")
+        ssnAnimation.hide(
+            view: mainPageView,
+            duration: 0.5) {
+                self.mainPageView.removeAllConstraints()
+                self.mainPageView.removeFromSuperview()
+                self.view.addSubview(self.searchingPageView)
+                self.pageViewConstraints(subview: self.searchingPageView)
+                
+                self.ssnAnimation.show(
+                    view: self.searchingPageView,
+                    duration: 0.5) {
+                        
+                    }
+            }
     }
     
     @objc func locationUpdateMarker() {
