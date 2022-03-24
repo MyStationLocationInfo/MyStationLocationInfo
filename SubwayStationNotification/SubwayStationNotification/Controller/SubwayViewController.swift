@@ -24,6 +24,7 @@ class SubwayViewController: UIViewController {
     //MARK: - Pages
     let mainPageView: MainPageView = MainPageView()
     let searchingPageView = SearchingPageView()
+    let resultPageView = ResultPageView()
 
     override func viewDidLoad() {
         let gradientLayer = designProcessor.getGradientLayer(view)
