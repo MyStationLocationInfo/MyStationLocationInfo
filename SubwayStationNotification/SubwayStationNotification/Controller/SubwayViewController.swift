@@ -70,9 +70,15 @@ class SubwayViewController: UIViewController {
                 self.ssnAnimation.show(
                     view: self.searchingPageView,
                     duration: 0.5) {
-                        
+                        self.perform(#selector(self.presentResultPage),
+                        with: nil,
+                        afterDelay: 2)
                     }
             }
+    }
+    
+    @objc func presentResultPage() {
+        
     }
     
     @objc func locationUpdateMarker() {
