@@ -24,6 +24,8 @@ class ResultPageView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+        addSubView()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
