@@ -56,6 +56,10 @@ class SubwayViewController: UIViewController {
         mainPageView.findButtonView.addTarget(self, #selector(handleFindButton))
     }
     
+    func configureRefindButton() {
+        resultPageView.findButtonView.addTarget(self, #selector(handleRefindButton))
+    }
+    
     // MARK: - handleFindButton
     @objc func handleFindButton() {
         debugPrint("handleFindButton")
@@ -78,7 +82,26 @@ class SubwayViewController: UIViewController {
     }
     
     @objc func presentResultPage() {
-        
+        ssnAnimation.hide(
+            view: searchingPageView,
+            duration: 0.5) {
+                self.searchingPageView.removeAllConstraints()
+                self.searchingPageView.removeFromSuperview()
+                
+                self.view.addSubview(self.resultPageView)
+                self.pageViewConstraints(subview: self.resultPageView)
+                self.resultPageView.findButtonView.startAnimating()
+                self.configureRefindButton()
+                
+                self.ssnAnimation.show(
+                    view: self.resultPageView,
+                    duration: 0.5,
+                    completion: nil)
+            }
+    }
+    
+    @objc func handleRefindButton() {
+        debugPrint("handleRefindButton")
     }
     
     @objc func locationUpdateMarker() {
