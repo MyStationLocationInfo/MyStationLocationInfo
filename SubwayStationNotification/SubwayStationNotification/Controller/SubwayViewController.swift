@@ -96,7 +96,9 @@ class SubwayViewController: UIViewController {
                 self.ssnAnimation.show(
                     view: self.resultPageView,
                     duration: 0.5,
-                    completion: nil)
+                    completion: {
+                        self.locationUpdateMarker()
+                    })
             }
     }
     
@@ -123,6 +125,12 @@ class SubwayViewController: UIViewController {
             return distance
         }
         debugPrint(mapped.sorted { $0.1 < $1.1 })
+        
+        let sortedByValue = mapped.sorted { $0.1 < $1.1 }
+        
+        DispatchQueue.main.async {
+            self.resultPageView.titleLabel.text = "\(sortedByValue[0].key)역"
+        }
     }
     
     func pageViewConstraints(subview: UIView) {
