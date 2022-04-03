@@ -13,7 +13,7 @@ class MainPageView: UIView {
         let titleLabel = UILabel()
         titleLabel.textAlignment = .center
         titleLabel.text = "🚊 터치하여 현재 역 찾기"
-        titleLabel.textColor = .black
+        titleLabel.textColor = .white
         titleLabel.font = .boldSystemFont(ofSize: 30)
         titleLabel.adjustsFontSizeToFitWidth = true
         
