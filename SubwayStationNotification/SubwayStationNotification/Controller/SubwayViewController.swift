@@ -135,8 +135,8 @@ class SubwayViewController: UIViewController {
     
     func pageViewConstraints(subview: UIView) {
         subview.translatesAutoresizingMaskIntoConstraints = false
-        subview.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        subview.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        subview.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7).isActive = true
+        subview.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5).isActive = true
         subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         subview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
