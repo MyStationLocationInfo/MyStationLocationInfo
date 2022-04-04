@@ -23,14 +23,6 @@ class SearchingPageView: UIView {
     
     let metroLottie: AnimationView = {
         let metroLottie:AnimationView = AnimationView(name: "metro")
-        metroLottie.play(
-            fromFrame: 0,
-            toFrame: 200,
-            loopMode: .loop,
-            completion: nil
-        )
-        metroLottie.animationSpeed = 2
-        
         return metroLottie
     }()
     
@@ -39,6 +31,7 @@ class SearchingPageView: UIView {
         setup()
         addSubView()
         setConstraints()
+        startAnimating()
     }
     
     required init?(coder: NSCoder) {
@@ -58,6 +51,15 @@ class SearchingPageView: UIView {
         titleLabelConstratins()
         loadingAnimationViewConstraints()
     }
+    
+    func startAnimating() {
+        metroLottie.play(
+            fromFrame: 0,
+            toFrame: 80,
+            loopMode: .loop,
+            completion: nil)
+    }
+
     
     private func titleLabelConstratins() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
