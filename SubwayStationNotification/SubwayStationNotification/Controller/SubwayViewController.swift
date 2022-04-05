@@ -104,6 +104,28 @@ class SubwayViewController: UIViewController {
     
     @objc func handleRefindButton() {
         debugPrint("handleRefindButton")
+        
+        ssnAnimation.hide(
+            view: self.resultPageView,
+            duration: 0.5,
+            completion: {
+                self.resultPageView.removeAllConstraints()
+                self.resultPageView.removeFromSuperview()
+                self.view.addSubview(self.searchingPageView)
+                self.searchingPageView.startAnimating()
+                self.pageViewConstraints(subview: self.searchingPageView)
+                
+                self.ssnAnimation.show(
+                    view: self.searchingPageView,
+                    duration: 0.5,
+                    completion: {
+                        self.perform(
+                            #selector(self.presentResultPage),
+                            with: nil,
+                            afterDelay: 2
+                        )
+                    })
+            })
     }
     
     @objc func locationUpdateMarker() {
