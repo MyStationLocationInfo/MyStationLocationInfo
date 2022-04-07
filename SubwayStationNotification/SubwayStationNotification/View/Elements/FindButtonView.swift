@@ -14,6 +14,8 @@ class FindButtonView: UIView {
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 50
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.textAlignment = .center
         button.layer.masksToBounds = true
         return button
     }()
@@ -26,6 +28,11 @@ class FindButtonView: UIView {
         findButtonBackView.layer.masksToBounds = true
         return findButtonBackView
     }()
+    
+    convenience init(buttonTitle: String) {
+        self.init()
+        self.findButton.setTitle(buttonTitle, for: .normal)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
