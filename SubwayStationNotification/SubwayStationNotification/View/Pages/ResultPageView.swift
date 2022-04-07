@@ -9,7 +9,7 @@ import UIKit
 
 class ResultPageView: UIView {
 
-    let findButtonView: FindButtonView = FindButtonView()
+    let findButtonView: FindButtonView = FindButtonView(buttonTitle: "현재 역 다시 찾기")
 
     var titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -17,10 +17,11 @@ class ResultPageView: UIView {
         titleLabel.textColor = .white
         titleLabel.font = .boldSystemFont(ofSize: 30)
         titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.numberOfLines = 0
         
         return titleLabel
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
