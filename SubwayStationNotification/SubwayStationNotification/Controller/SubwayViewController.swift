@@ -96,9 +96,7 @@ class SubwayViewController: UIViewController {
                 self.ssnAnimation.show(
                     view: self.resultPageView,
                     duration: 0.5,
-                    completion: {
-                        self.locationUpdateMarker()
-                    })
+                    completion: nil)
             }
     }
     
@@ -126,33 +124,6 @@ class SubwayViewController: UIViewController {
                         )
                     })
             })
-    }
-    
-    @objc func locationUpdateMarker() {
-        let mapped: [String: CLLocationDistance] = Data.subways.mapValues { coordinate in
-            
-            guard let latitude = latitude else { return 0.0 }
-            guard let longitude = longitude else { return 0.0 }
-            
-            // 현재 내 coordinate 위도,경도
-            let myLat = CLLocationDegrees(latitude)
-            let myLong = CLLocationDegrees(longitude)
-            let myLocation = CLLocation(latitude: myLat, longitude: myLong)
-            
-            // 지하철 coordinate 위도,경도
-            let stationLat = CLLocationDegrees(coordinate[0])
-            let stationLong = CLLocationDegrees(coordinate[1])
-            let stationLocation = CLLocation(latitude: stationLat, longitude: stationLong)
-            let distance = subwayManager.distance(a: myLocation, b: stationLocation)
-            return distance
-        }
-        debugPrint(mapped.sorted { $0.1 < $1.1 })
-        
-        let sortedByValue = mapped.sorted { $0.1 < $1.1 }
-        
-        DispatchQueue.main.async {
-            self.resultPageView.titleLabel.text = "\(sortedByValue[0].key)역"
-        }
     }
     
     func pageViewConstraints(subview: UIView) {
