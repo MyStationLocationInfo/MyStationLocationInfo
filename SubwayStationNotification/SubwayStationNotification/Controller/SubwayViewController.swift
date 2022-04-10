@@ -17,10 +17,6 @@ class SubwayViewController: UIViewController {
     let designProcessor = DesignProcessor()
     let ssnAnimation = SSNAnimation()
 
-    // MARK: - variable Property
-    var latitude: Double?
-    var longitude: Double?
-
     //MARK: - Pages
     let mainPageView: MainPageView = MainPageView()
     let searchingPageView = SearchingPageView()
@@ -141,8 +137,18 @@ extension SubwayViewController: CLLocationManagerDelegate {
         didUpdateLocations locations: [CLLocation]
     ) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        self.latitude = locValue.latitude
-        self.longitude = locValue.longitude
-        debugPrint("locations = \(locValue.latitude), \(locValue.longitude)")
+        var nearestStationName: String = subwayManager.getNearestSubwayStation(
+            x: locValue.latitude,
+            y: locValue.longitude
+        )
+        
+        // nil 방지
+        nearestStationName = nearestStationName == "error1"
+        ? "찾을 수 없습니다."
+        : "현재 가장 가까운 역은\n \(nearestStationName)역 입니다."
+
+        DispatchQueue.main.async {
+            self.resultPageView.titleLabel.text = nearestStationName
+        }
     }
 }
