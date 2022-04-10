@@ -17,10 +17,6 @@ class SubwayViewController: UIViewController {
     let designProcessor = DesignProcessor()
     let ssnAnimation = SSNAnimation()
 
-    // MARK: - variable Property
-    var latitude: Double?
-    var longitude: Double?
-
     //MARK: - Pages
     let mainPageView: MainPageView = MainPageView()
     let searchingPageView = SearchingPageView()
@@ -141,8 +137,9 @@ extension SubwayViewController: CLLocationManagerDelegate {
         didUpdateLocations locations: [CLLocation]
     ) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        self.latitude = locValue.latitude
-        self.longitude = locValue.longitude
-        debugPrint("locations = \(locValue.latitude), \(locValue.longitude)")
+        let nearestStationName: String = subwayManager.getNearestSubwayStation(
+            x: locValue.latitude,
+            y: locValue.longitude
+        )
     }
 }
