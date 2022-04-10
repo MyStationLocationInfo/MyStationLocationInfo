@@ -17,10 +17,6 @@ class SubwayViewController: UIViewController {
     let designProcessor = DesignProcessor()
     let ssnAnimation = SSNAnimation()
 
-    // MARK: - variable Property
-    var latitude: Double?
-    var longitude: Double?
-
     //MARK: - Pages
     let mainPageView: MainPageView = MainPageView()
     let searchingPageView = SearchingPageView()
@@ -96,9 +92,7 @@ class SubwayViewController: UIViewController {
                 self.ssnAnimation.show(
                     view: self.resultPageView,
                     duration: 0.5,
-                    completion: {
-                        self.locationUpdateMarker()
-                    })
+                    completion: nil)
             }
     }
     
@@ -128,33 +122,6 @@ class SubwayViewController: UIViewController {
             })
     }
     
-    @objc func locationUpdateMarker() {
-        let mapped: [String: CLLocationDistance] = Data.subways.mapValues { coordinate in
-            
-            guard let latitude = latitude else { return 0.0 }
-            guard let longitude = longitude else { return 0.0 }
-            
-            // 현재 내 coordinate 위도,경도
-            let myLat = CLLocationDegrees(latitude)
-            let myLong = CLLocationDegrees(longitude)
-            let myLocation = CLLocation(latitude: myLat, longitude: myLong)
-            
-            // 지하철 coordinate 위도,경도
-            let stationLat = CLLocationDegrees(coordinate[0])
-            let stationLong = CLLocationDegrees(coordinate[1])
-            let stationLocation = CLLocation(latitude: stationLat, longitude: stationLong)
-            let distance = subwayManager.distance(a: myLocation, b: stationLocation)
-            return distance
-        }
-        debugPrint(mapped.sorted { $0.1 < $1.1 })
-        
-        let sortedByValue = mapped.sorted { $0.1 < $1.1 }
-        
-        DispatchQueue.main.async {
-            self.resultPageView.titleLabel.text = "\(sortedByValue[0].key)역"
-        }
-    }
-    
     func pageViewConstraints(subview: UIView) {
         subview.translatesAutoresizingMaskIntoConstraints = false
         subview.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7).isActive = true
@@ -170,8 +137,18 @@ extension SubwayViewController: CLLocationManagerDelegate {
         didUpdateLocations locations: [CLLocation]
     ) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        self.latitude = locValue.latitude
-        self.longitude = locValue.longitude
-        debugPrint("locations = \(locValue.latitude), \(locValue.longitude)")
+        var nearestStationName: String = subwayManager.getNearestSubwayStation(
+            x: locValue.latitude,
+            y: locValue.longitude
+        )
+        
+        // nil 방지
+        nearestStationName = nearestStationName == "error1"
+        ? "찾을 수 없습니다."
+        : "현재 가장 가까운 역은\n \(nearestStationName)역 입니다."
+
+        DispatchQueue.main.async {
+            self.resultPageView.titleLabel.text = nearestStationName
+        }
     }
 }
