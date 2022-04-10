@@ -137,9 +137,18 @@ extension SubwayViewController: CLLocationManagerDelegate {
         didUpdateLocations locations: [CLLocation]
     ) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        let nearestStationName: String = subwayManager.getNearestSubwayStation(
+        var nearestStationName: String = subwayManager.getNearestSubwayStation(
             x: locValue.latitude,
             y: locValue.longitude
         )
+        
+        // nil 방지
+        nearestStationName = nearestStationName == "error1"
+        ? "찾을 수 없습니다."
+        : "현재 가장 가까운 역은\n \(nearestStationName)역 입니다."
+
+        DispatchQueue.main.async {
+            self.resultPageView.titleLabel.text = nearestStationName
+        }
     }
 }
